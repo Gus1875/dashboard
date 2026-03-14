@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinheiro Advocacia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2e;
+    --navy-mid: #162540;
+    --gold: #c9a84c;
+    --gold-light: #e0c070;
+    --gold-dim: #7a6228;
+    --cream: #f0e8d8;
+    --text: #ddd8cc;
+    --text-dim: #706858;
+    --danger: #c0392b;
+    --warn: #c87820;
+    --ok: #27ae60;
+    --card-bg: rgba(18,32,54,0.72);
+    --card-border: rgba(201,168,76,0.13);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: #060e18;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content:''; position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 55% 35% at 15% 8%, rgba(201,168,76,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 55% at 88% 85%, rgba(201,168,76,0.04) 0%, transparent 50%),
+      linear-gradient(150deg,#0d1b2e 0%,#080f1a 55%,#040a12 100%);
+    pointer-events:none; z-index:0;
+  }
+
+  body::after {
+    content:''; position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);
+    background-size:44px 44px;
+    pointer-events:none; z-index:0;
+  }
+
+  .container {
+    position:relative; z-index:1;
+    max-width:1440px; margin:0 auto;
+    padding:24px 32px 36px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:28px; padding-bottom:20px;
+    border-bottom:1px solid rgba(201,168,76,0.15);
+    animation:fadeDown 0.5s ease both;
+  }
+
+  .brand { display:flex; align-items:center; gap:14px; }
+
+  .brand-seal {
+    width:46px; height:46px;
+    border:1.5px solid var(--gold); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond',serif;
+    font-size:20px; font-weight:700; color:var(--gold);
+    box-shadow:0 0 14px rgba(201,168,76,0.12); flex-shrink:0;
+  }
+
+  .brand-text h1 {
+    font-family:'Cormorant Garamond',serif;
+    font-size:22px; font-weight:600;
+    color:var(--cream); letter-spacing:0.02em; line-height:1;
+  }
+
+  .brand-text p {
+    font-size:10px; color:var(--gold-dim);
+    letter-spacing:0.15em; text-transform:uppercase;
+    margin-top:3px; font-family:'DM Mono',monospace;
+  }
+
+  .btn-edit {
+    display:flex; align-items:center; gap:7px;
+    padding:8px 16px; background:transparent;
+    border:1px solid rgba(201,168,76,0.2); border-radius:7px;
+    color:var(--text-dim); font-family:'DM Mono',monospace;
+    font-size:11px; letter-spacing:0.08em; cursor:pointer; transition:all 0.15s;
+  }
+  .btn-edit:hover, .btn-edit.active {
+    background:rgba(201,168,76,0.1);
+    border-color:rgba(201,168,76,0.35); color:var(--gold-light);
+  }
+
+  /* ── GRID ── */
+  .main-grid {
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:20px;
+  }
+
+  .left-col { display:flex; flex-direction:column; gap:20px; }
+  .right-col { display:flex; flex-direction:column; gap:20px; }
+
+  /* ── CARD ── */
+  .card {
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:14px; padding:22px 24px;
+    backdrop-filter:blur(10px);
+    animation:fadeUp 0.45s ease both;
+    transition:border-color 0.2s;
+  }
+  .card:hover { border-color:rgba(201,168,76,0.22); }
+
+  .card-title {
+    font-family:'DM Mono',monospace;
+    font-size:9.5px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--gold-dim);
+    margin-bottom:18px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+
+  .card-title-left { display:flex; align-items:center; gap:8px; }
+  .card-title-left::before {
+    content:''; display:inline-block;
+    width:18px; height:1px; background:var(--gold-dim);
+  }
+
+  /* ── LINKS GRID ── */
+  .links-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+  }
+
+  .quick-link {
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:8px;
+    padding:16px 10px;
+    background:rgba(10,20,38,0.65);
+    border:1px solid rgba(201,168,76,0.1);
+    border-radius:11px; text-decoration:none;
+    color:var(--text); font-size:12px; font-weight:400;
+    text-align:center; transition:all 0.18s; cursor:pointer;
+    min-height:82px; position:relative;
+  }
+  .quick-link:hover {
+    background:rgba(201,168,76,0.08);
+    border-color:rgba(201,168,76,0.3); color:var(--gold-light);
+    transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  .link-emoji { font-size:22px; line-height:1; }
+  .link-label { font-size:12px; line-height:1.2; font-weight:500; }
+  .link-sub   { font-size:10px; color:var(--text-dim); line-height:1; }
+
+  /* Edit overlay */
+  .edit-overlay {
+    display:none; position:absolute; inset:0;
+    background:rgba(6,14,24,0.92); border-radius:10px;
+    flex-direction:column; gap:4px;
+    align-items:center; justify-content:center;
+    padding:8px; z-index:10;
+  }
+  body.editing .quick-link .edit-overlay { display:flex; }
+
+  .edit-overlay input {
+    width:100%; padding:4px 7px;
+    background:rgba(13,27,46,0.95);
+    border:1px solid rgba(201,168,76,0.3); border-radius:5px;
+    color:var(--cream); font-size:10px;
+    font-family:'DM Mono',monospace; outline:none; text-align:center;
+  }
+  .edit-overlay input:focus { border-color:var(--gold); }
+
+  .edit-save-btn {
+    margin-top:2px; padding:3px 10px;
+    background:rgba(201,168,76,0.18);
+    border:1px solid rgba(201,168,76,0.3); border-radius:4px;
+    color:var(--gold-light); font-family:'DM Mono',monospace;
+    font-size:9px; letter-spacing:0.05em; cursor:pointer; transition:all 0.12s;
+  }
+  .edit-save-btn:hover { background:rgba(201,168,76,0.3); }
+
+  /* ── FERRAMENTAS ── */
+  .tools-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+  }
+
+  .tool-btn {
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:8px;
+    padding:16px 10px;
+    background:rgba(10,20,38,0.65);
+    border:1px solid rgba(201,168,76,0.1); border-radius:11px;
+    color:var(--text); font-size:12px; font-weight:500;
+    text-align:center; cursor:pointer; transition:all 0.18s;
+    min-height:82px; width:100%;
+    font-family:'DM Sans',sans-serif; text-decoration:none;
+  }
+  .tool-btn:hover {
+    background:rgba(201,168,76,0.08);
+    border-color:rgba(201,168,76,0.3); color:var(--gold-light);
+    transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  .tool-emoji { font-size:22px; line-height:1; }
+  .tool-sub   { font-size:10px; color:var(--text-dim); line-height:1; }
+
+  /* ── TO-DO ── */
+  .todo-card {
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:14px; padding:18px 20px;
+    backdrop-filter:blur(10px);
+    animation:fadeUp 0.45s ease 0.1s both;
+    transition:border-color 0.2s;
+  }
+  .todo-card:hover { border-color:rgba(201,168,76,0.22); }
+
+  .todo-header {
+    font-family:'DM Mono',monospace;
+    font-size:9.5px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--gold-dim);
+    margin-bottom:12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .todo-header::before {
+    content:''; display:inline-block;
+    width:18px; height:1px; background:var(--gold-dim);
+  }
+
+  .todo-input-row {
+    display:flex; gap:8px; margin-bottom:10px;
+  }
+
+  .todo-input {
+    flex:1; padding:8px 12px;
+    background:rgba(8,16,30,0.7);
+    border:1px solid rgba(201,168,76,0.15); border-radius:7px;
+    color:var(--cream); font-size:12.5px;
+    font-family:'DM Sans',sans-serif; outline:none;
+    transition:border-color 0.12s;
+  }
+  .todo-input:focus { border-color:rgba(201,168,76,0.3); }
+  .todo-input::placeholder { color:var(--text-dim); font-size:12px; }
+
+  .todo-add {
+    padding:8px 13px;
+    background:rgba(201,168,76,0.12);
+    border:1px solid rgba(201,168,76,0.25); border-radius:7px;
+    color:var(--gold-light); font-size:16px; cursor:pointer;
+    transition:all 0.12s; line-height:1;
+  }
+  .todo-add:hover { background:rgba(201,168,76,0.22); }
+
+  .todo-list {
+    display:flex; flex-direction:column; gap:5px;
+    max-height:160px; overflow-y:auto;
+    scrollbar-width:thin; scrollbar-color:var(--gold-dim) transparent;
+  }
+
+  .todo-item {
+    display:flex; align-items:center; gap:9px;
+    padding:7px 10px;
+    background:rgba(8,16,30,0.5);
+    border:1px solid rgba(201,168,76,0.08); border-radius:7px;
+    transition:all 0.15s;
+  }
+  .todo-item.done { opacity:0.45; }
+
+  .todo-check {
+    width:15px; height:15px; flex-shrink:0;
+    border:1.5px solid rgba(201,168,76,0.3); border-radius:3px;
+    background:transparent; cursor:pointer; transition:all 0.12s;
+    display:flex; align-items:center; justify-content:center; font-size:10px;
+  }
+  .todo-item.done .todo-check {
+    background:rgba(39,174,96,0.2); border-color:var(--ok); color:var(--ok);
+  }
+
+  .todo-text {
+    flex:1; font-size:12.5px; color:var(--cream);
+    line-height:1.3; cursor:pointer;
+  }
+  .todo-item.done .todo-text {
+    text-decoration:line-through; color:var(--text-dim);
+  }
+
+  .todo-del {
+    background:none; border:none; color:var(--text-dim);
+    font-size:14px; cursor:pointer; transition:color 0.12s;
+    padding:0 2px; line-height:1; flex-shrink:0;
+  }
+  .todo-del:hover { color:#e74c3c; }
+
+  .todo-empty {
+    font-family:'DM Mono',monospace; font-size:11px;
+    color:var(--text-dim); text-align:center; padding:14px 0;
+  }
+
+  /* ── BLOCO DE NOTAS ── */
+  .notepad {
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:14px; padding:20px 22px;
+    backdrop-filter:blur(10px);
+    display:flex; flex-direction:column;
+    animation:fadeUp 0.45s ease 0.08s both;
+    transition:border-color 0.2s;
+  }
+  .notepad:hover { border-color:rgba(201,168,76,0.22); }
+
+  .notepad-header {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:12px;
+  }
+
+  .notepad-title {
+    font-family:'DM Mono',monospace;
+    font-size:9.5px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--gold-dim);
+    display:flex; align-items:center; gap:8px;
+  }
+  .notepad-title::before {
+    content:''; display:inline-block;
+    width:18px; height:1px; background:var(--gold-dim);
+  }
+
+  .note-tabs { display:flex; gap:4px; }
+  .note-tab {
+    padding:3px 10px; border-radius:5px;
+    font-family:'DM Mono',monospace; font-size:10px;
+    cursor:pointer; transition:all 0.12s;
+    border:1px solid transparent; color:var(--text-dim); background:transparent;
+  }
+  .note-tab.active {
+    background:rgba(201,168,76,0.12);
+    border-color:rgba(201,168,76,0.25); color:var(--gold-light);
+  }
+  .note-tab:hover:not(.active) { color:var(--text); }
+
+  textarea.notepad-area {
+    width:100%;
+    background:rgba(8,16,30,0.6);
+    border:1px solid rgba(201,168,76,0.1); border-radius:8px;
+    color:var(--cream); font-family:'DM Mono',monospace;
+    font-size:12.5px; line-height:1.65;
+    padding:10px 12px; resize:none; outline:none;
+    transition:border-color 0.15s; min-height:140px;
+  }
+  textarea.notepad-area:focus { border-color:rgba(201,168,76,0.25); }
+  textarea.notepad-area::placeholder { color:var(--text-dim); font-size:11.5px; }
+
+  .note-footer {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:7px;
+  }
+
+  .note-saved {
+    font-family:'DM Mono',monospace; font-size:10px; color:var(--text-dim);
+    transition:color 0.3s;
+  }
+  .note-saved.flash { color:var(--ok); }
+
+  .note-clear {
+    padding:3px 10px; background:transparent;
+    border:1px solid rgba(201,168,76,0.12); border-radius:5px;
+    color:var(--text-dim); font-family:'DM Mono',monospace;
+    font-size:10px; cursor:pointer; transition:all 0.12s;
+  }
+  .note-clear:hover { border-color:rgba(192,57,43,0.4); color:#e74c3c; }
+
+  /* ── CALENDÁRIO ── */
+  .calendar-card {
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:14px; padding:18px 20px;
+    backdrop-filter:blur(10px);
+    animation:fadeUp 0.45s ease 0.15s both;
+    transition:border-color 0.2s;
+  }
+  .calendar-card:hover { border-color:rgba(201,168,76,0.22); }
+
+  .cal-header {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:14px;
+  }
+
+  .cal-title {
+    font-family:'DM Mono',monospace; font-size:9.5px;
+    letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-dim);
+    display:flex; align-items:center; gap:8px;
+  }
+  .cal-title::before {
+    content:''; display:inline-block;
+    width:18px; height:1px; background:var(--gold-dim);
+  }
+
+  .cal-nav { display:flex; align-items:center; gap:8px; }
+
+  .cal-nav-btn {
+    background:none; border:none; color:var(--text-dim);
+    font-size:14px; cursor:pointer; transition:color 0.12s;
+    padding:2px 5px; line-height:1;
+  }
+  .cal-nav-btn:hover { color:var(--gold); }
+
+  .cal-month {
+    font-family:'DM Mono',monospace; font-size:11px;
+    color:var(--cream); letter-spacing:0.05em; min-width:90px; text-align:center;
+  }
+
+  .cal-grid {
+    display:grid; grid-template-columns:repeat(7,1fr); gap:3px;
+  }
+
+  .cal-dow {
+    font-family:'DM Mono',monospace; font-size:9px;
+    color:var(--text-dim); text-align:center;
+    padding:3px 0; letter-spacing:0.05em;
+  }
+
+  .cal-day {
+    font-family:'DM Mono',monospace; font-size:11.5px;
+    text-align:center; padding:5px 2px; border-radius:5px;
+    cursor:default; color:var(--text-dim); transition:all 0.12s;
+  }
+  .cal-day.cur-month { color:var(--text); }
+  .cal-day.today {
+    background:rgba(201,168,76,0.18);
+    color:var(--gold-light); font-weight:500;
+    border:1px solid rgba(201,168,76,0.3);
+  }
+  .cal-day.weekend { color:rgba(201,168,76,0.45); }
+  .cal-day.today.weekend { color:var(--gold-light); }
+
+  /* ── ACESSO DIRETO ── */
+  .side-links { display:flex; flex-direction:column; gap:7px; }
+
+  .side-link {
+    display:flex; align-items:center; gap:11px;
+    padding:12px 14px;
+    background:rgba(10,20,38,0.65);
+    border:1px solid rgba(201,168,76,0.1); border-radius:10px;
+    text-decoration:none; color:var(--text); font-size:13px;
+    transition:all 0.15s; cursor:pointer; position:relative;
+  }
+  .side-link:hover {
+    background:rgba(201,168,76,0.08);
+    border-color:rgba(201,168,76,0.28); color:var(--gold-light);
+  }
+
+  .side-link-icon { font-size:16px; flex-shrink:0; }
+  .side-link-sub  { font-size:10px; color:var(--text-dim); }
+
+  /* Edit overlay acesso */
+  .side-edit-overlay {
+    display:none; position:absolute; inset:0;
+    background:rgba(6,14,24,0.92); border-radius:9px;
+    flex-direction:row; gap:5px;
+    align-items:center; padding:6px 10px; z-index:10;
+  }
+  body.editing .side-link .side-edit-overlay { display:flex; }
+
+  .side-edit-overlay input {
+    padding:4px 7px;
+    background:rgba(13,27,46,0.95);
+    border:1px solid rgba(201,168,76,0.3); border-radius:5px;
+    color:var(--cream); font-size:10px;
+    font-family:'DM Mono',monospace; outline:none;
+  }
+  .side-edit-overlay input:focus { border-color:var(--gold); }
+  .side-edit-overlay .ei-emoji { width:36px; text-align:center; }
+  .side-edit-overlay .ei-label { width:90px; }
+  .side-edit-overlay .ei-url   { flex:1; }
+
+  /* ── MODAIS ── */
+  .modal-overlay {
+    display:none; position:fixed; inset:0;
+    background:rgba(4,10,20,0.9);
+    z-index:200; backdrop-filter:blur(6px);
+    align-items:center; justify-content:center;
+  }
+  .modal-overlay.open { display:flex; }
+
+  .modal {
+    background:#0f1e34;
+    border:1px solid rgba(201,168,76,0.22); border-radius:16px;
+    width:92vw; max-width:680px; max-height:88vh;
+    overflow-y:auto; padding:28px 30px; position:relative;
+    animation:fadeUp 0.2s ease both;
+  }
+
+  .modal-close {
+    position:absolute; top:16px; right:18px;
+    background:none; border:none; color:var(--text-dim);
+    font-size:18px; cursor:pointer; transition:color 0.12s;
+  }
+  .modal-close:hover { color:var(--gold); }
+
+  .modal h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-size:22px; color:var(--cream); margin-bottom:16px;
+  }
+
+  .modal-input, .modal-select, .modal-textarea {
+    width:100%; padding:10px 13px;
+    background:rgba(8,16,30,0.9);
+    border:1px solid rgba(201,168,76,0.2); border-radius:8px;
+    color:var(--cream); font-size:13px; outline:none;
+    font-family:'DM Sans',sans-serif; transition:border-color 0.12s;
+    margin-bottom:8px;
+  }
+  .modal-input:focus, .modal-select:focus, .modal-textarea:focus { border-color:var(--gold); }
+  .modal-input::placeholder, .modal-textarea::placeholder { color:var(--text-dim); }
+  .modal-textarea { resize:vertical; min-height:80px; }
+
+  .modal-result {
+    margin-top:12px; padding:14px 16px;
+    background:rgba(8,16,30,0.7);
+    border:1px solid rgba(201,168,76,0.1); border-radius:8px;
+    font-family:'DM Mono',monospace; font-size:12.5px;
+    line-height:1.7; color:var(--cream);
+    white-space:pre-wrap; min-height:56px;
+  }
+
+  .btn-row { display:flex; gap:8px; margin-bottom:2px; }
+
+  .btn-primary {
+    padding:9px 18px;
+    background:rgba(201,168,76,0.14);
+    border:1px solid rgba(201,168,76,0.32); border-radius:7px;
+    color:var(--gold-light); font-family:'DM Mono',monospace;
+    font-size:11px; cursor:pointer; letter-spacing:0.06em; transition:all 0.12s;
+  }
+  .btn-primary:hover { background:rgba(201,168,76,0.26); }
+
+  .btn-sec {
+    padding:9px 14px; background:transparent;
+    border:1px solid rgba(201,168,76,0.14); border-radius:7px;
+    color:var(--text-dim); font-family:'DM Mono',monospace;
+    font-size:11px; cursor:pointer; transition:all 0.12s;
+  }
+  .btn-sec:hover { color:var(--gold); border-color:rgba(201,168,76,0.28); }
+
+  /* Calculadora comum */
+  .calc-display {
+    background:rgba(8,16,30,0.9);
+    border:1px solid rgba(201,168,76,0.2); border-radius:10px;
+    padding:16px 18px; margin-bottom:12px;
+    text-align:right;
+  }
+  .calc-expr {
+    font-family:'DM Mono',monospace; font-size:12px;
+    color:var(--text-dim); min-height:18px; margin-bottom:4px;
+    word-break:break-all;
+  }
+  .calc-val {
+    font-family:'DM Mono',monospace; font-size:28px;
+    color:var(--gold-light); line-height:1;
+    word-break:break-all;
+  }
+
+  .calc-buttons {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:8px;
+  }
+
+  .cb {
+    padding:14px 8px; border-radius:8px;
+    font-family:'DM Mono',monospace; font-size:15px;
+    cursor:pointer; transition:all 0.12s; border:none;
+    background:rgba(18,32,54,0.8); color:var(--text);
+    border:1px solid rgba(201,168,76,0.1);
+  }
+  .cb:hover { background:rgba(201,168,76,0.1); color:var(--gold-light); }
+  .cb.op  { color:var(--gold); background:rgba(201,168,76,0.08); }
+  .cb.eq  { background:rgba(201,168,76,0.18); color:var(--gold-light); border-color:rgba(201,168,76,0.3); }
+  .cb.eq:hover { background:rgba(201,168,76,0.3); }
+  .cb.clr { color:#e74c3c; }
+  .cb.zero { grid-column:span 2; }
+
+  /* Calc prazos */
+  .calc-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+  .calc-field label {
+    display:block; font-size:10px; color:var(--gold-dim);
+    letter-spacing:0.1em; text-transform:uppercase;
+    font-family:'DM Mono',monospace; margin-bottom:4px;
+  }
+  .calc-field .modal-input, .calc-field .modal-select { margin-bottom:0; }
+
+  /* CNJ */
+  .cnj-badge {
+    display:inline-flex; align-items:center;
+    padding:4px 10px; border-radius:5px;
+    font-family:'DM Mono',monospace; font-size:12px;
+    background:rgba(201,168,76,0.1); color:var(--gold-light);
+    border:1px solid rgba(201,168,76,0.2);
+    margin-bottom:10px; letter-spacing:0.05em;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.25} }
+  .loading { animation:pulse 1.1s infinite; color:var(--gold); }
+
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(8px)}  to{opacity:1;transform:translateY(0)} }
+
+  footer {
+    margin-top:22px; padding-top:14px;
+    border-top:1px solid rgba(201,168,76,0.07);
+    display:flex; align-items:center; justify-content:space-between;
+    animation:fadeUp 0.45s 0.25s both;
+  }
+  .version { font-family:'DM Mono',monospace; font-size:9.5px; color:var(--gold-dim); letter-spacing:0.1em; }
+  .footer-links { display:flex; gap:16px; }
+  .footer-link {
+    font-family:'DM Mono',monospace; font-size:9.5px;
+    color:var(--text-dim); text-decoration:none;
+    letter-spacing:0.08em; transition:color 0.12s;
+  }
+  .footer-link:hover { color:var(--gold-dim); }
+
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:var(--gold-dim); border-radius:3px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <div class="brand-seal">PA</div>
+      <div class="brand-text">
+        <h1>Pinheiro Advocacia</h1>
+        <p>Painel Operacional</p>
+      </div>
+    </div>
+    <button class="btn-edit" id="btn-edit" onclick="toggleEdit()">
+      <span>✏</span><span id="edit-label">Editar links</span>
+    </button>
+  </header>
+
+  <div class="main-grid">
+
+    <!-- COLUNA ESQUERDA -->
+    <div class="left-col">
+
+      <!-- SISTEMAS -->
+      <div class="card">
+        <div class="card-title"><span class="card-title-left">Sistemas & Plataformas</span></div>
+        <div class="links-grid" id="links-sistemas"></div>
+      </div>
+
+      <!-- FERRAMENTAS INTERNAS -->
+      <div class="card">
+        <div class="card-title"><span class="card-title-left">Ferramentas Internas</span></div>
+        <div class="tools-grid" id="tools-grid"></div>
+      </div>
+
+      <!-- TO-DO -->
+      <div class="todo-card">
+        <div class="todo-header">To-Do</div>
+        <div class="todo-input-row">
+          <input type="text" class="todo-input" id="todo-input"
+            placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')addTodo()" />
+          <button class="todo-add" onclick="addTodo()">+</button>
+        </div>
+        <div class="todo-list" id="todo-list"></div>
+      </div>
+
+    </div>
+
+    <!-- COLUNA DIREITA -->
+    <div class="right-col">
+
+      <!-- CALENDÁRIO -->
+      <div class="calendar-card">
+        <div class="cal-header">
+          <div class="cal-title">Calendário</div>
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
+            <div class="cal-month" id="cal-month"></div>
+            <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
+          </div>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+
+      <!-- BLOCO DE NOTAS -->
+      <div class="notepad">
+        <div class="notepad-header">
+          <div class="notepad-title">Bloco de Notas</div>
+          <div class="note-tabs">
+            <button class="note-tab active" onclick="switchTab(0)">1</button>
+            <button class="note-tab" onclick="switchTab(1)">2</button>
+            <button class="note-tab" onclick="switchTab(2)">3</button>
+          </div>
+        </div>
+        <textarea class="notepad-area" id="notepad-area"
+          placeholder="Anotações rápidas... (salvo automaticamente)"></textarea>
+        <div class="note-footer">
+          <span class="note-saved" id="note-saved">auto-salvo</span>
+          <button class="note-clear" onclick="clearNote()">limpar</button>
+        </div>
+      </div>
+
+      <!-- ACESSO DIRETO -->
+      <div class="card" style="padding:18px 20px;">
+        <div class="card-title"><span class="card-title-left">Acesso Direto</span></div>
+        <div class="side-links" id="links-acesso"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span class="version">Pinheiro Dashboard v3.0 · 2026</span>
+    <div class="footer-links">
+      <a class="footer-link" href="https://notion.so" target="_blank">Notion ↗</a>
+      <a class="footer-link" href="https://claude.ai" target="_blank">Claude ↗</a>
+      <a class="footer-link" href="https://esaj.tjsp.jus.br" target="_blank">E-SAJ ↗</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════ MODAIS ══════════════ -->
+
+<!-- FAREJADOR -->
+<div class="modal-overlay" id="modal-farejador">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('farejador')">✕</button>
+    <h2>🔎 Farejador Pinheiro</h2>
+    <p style="font-size:11.5px;color:var(--text-dim);margin-bottom:14px;">Análise jurisprudencial — teses do escritório.</p>
+    <select class="modal-select" id="farej-tema">
+      <option value="">— Selecione o tema —</option>
+      <option value="abono de permanência STJ Tema 1233 servidor público São Paulo TJSP">Abono de Permanência (STJ Tema 1.233)</option>
+      <option value="desvio de função servidor público São Paulo TJSP fazenda pública">Desvio de Função</option>
+      <option value="GEAH décimos incorporados servidor São Paulo fazenda pública TJSP">GEAH / Décimos Incorporados</option>
+      <option value="precatório RPV cumprimento de sentença fazenda pública São Paulo JESP">Precatório / RPV / Cumprimento de Sentença</option>
+      <option value="IRDR 47 suspensão fazenda pública São Paulo reclamação">IRDR 47 — Suspensão Fazenda Pública</option>
+      <option value="licença prêmio pecúnia servidor São Paulo TJSP">Licença-Prêmio / Pecúnia</option>
+      <option value="quinquênio sexta-parte adicional temporal servidor São Paulo fazenda pública">Quinquênio / Sexta-Parte</option>
+    </select>
+    <input type="text" class="modal-input" id="farej-custom" placeholder="Ou descreva livremente a questão jurídica..." />
+    <div class="btn-row">
+      <button class="btn-primary" onclick="runFarejador()">Analisar</button>
+      <button class="btn-sec" onclick="copyEl('farej-result')">Copiar</button>
+    </div>
+    <div class="modal-result" id="farej-result">O resultado aparecerá aqui.</div>
+  </div>
+</div>
+
+<!-- GERADOR -->
+<div class="modal-overlay" id="modal-gerador">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('gerador')">✕</button>
+    <h2>✍️ Gerador de Peças</h2>
+    <p style="font-size:11.5px;color:var(--text-dim);margin-bottom:14px;">Estrutura argumentativa — revisar antes de protocolar.</p>
+    <select class="modal-select" id="gen-tipo">
+      <option value="">— Tipo de peça —</option>
+      <option value="cumprimento de sentença fazenda pública São Paulo servidor público JESP">Cumprimento de Sentença</option>
+      <option value="embargos de declaração omissão contradição TJSP servidor público fazenda pública">Embargos de Declaração</option>
+      <option value="impugnação suspensão IRDR 47 reclamação fazenda pública São Paulo">Impugnação à Suspensão (IRDR 47)</option>
+      <option value="recurso inominado JESP fazenda pública servidor público São Paulo">Recurso Inominado (JESP)</option>
+      <option value="alegações finais servidor público São Paulo fazenda pública JESP">Alegações Finais</option>
+    </select>
+    <textarea class="modal-textarea" id="gen-fatos" placeholder="Fatos: partes, cargo, período, valor aproximado, decisão anterior se houver..."></textarea>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="runGerador()">Gerar estrutura</button>
+      <button class="btn-sec" onclick="copyEl('gen-output')">Copiar</button>
+    </div>
+    <div class="modal-result" id="gen-output">A estrutura aparecerá aqui.</div>
+  </div>
+</div>
+
+<!-- CALCULADORA PRAZOS -->
+<div class="modal-overlay" id="modal-calculadora">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('calculadora')">✕</button>
+    <h2>🧮 Calculadora de Prazos</h2>
+    <div class="calc-grid">
+      <div class="calc-field">
+        <label>Data de início</label>
+        <input type="date" class="modal-input" id="calc-inicio" style="margin:0" />
+      </div>
+      <div class="calc-field">
+        <label>Tipo de prazo</label>
+        <select class="modal-select" id="calc-tipo" style="margin:0" onchange="toggleCalcCustom()">
+          <option value="5u">5 dias úteis</option>
+          <option value="10u">10 dias úteis</option>
+          <option value="15u">15 dias úteis</option>
+          <option value="15">15 dias corridos</option>
+          <option value="30">30 dias corridos</option>
+          <option value="30u">30 dias úteis</option>
+          <option value="custom">Personalizado</option>
+        </select>
+      </div>
+      <div class="calc-field" id="custom-dias-field" style="display:none">
+        <label>Nº de dias</label>
+        <input type="number" class="modal-input" id="calc-custom-dias" value="15" min="1" style="margin:0" />
+      </div>
+      <div class="calc-field" id="custom-tipo-field" style="display:none">
+        <label>Contagem</label>
+        <select class="modal-select" id="calc-custom-tipo" style="margin:0">
+          <option value="uteis">Úteis</option>
+          <option value="corridos">Corridos</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="calcularPrazo()">Calcular</button>
+      <button class="btn-sec" onclick="copyEl('calc-result')">Copiar</button>
+    </div>
+    <div class="modal-result" id="calc-result">Selecione a data e o tipo de prazo.</div>
+    <p style="font-size:10px;color:var(--text-dim);margin-top:10px;font-family:'DM Mono',monospace;">⚠ Não inclui feriados locais de Sorocaba. Verificar no tribunal.</p>
+  </div>
+</div>
+
+<!-- CALCULADORA COMUM -->
+<div class="modal-overlay" id="modal-calc">
+  <div class="modal" style="max-width:340px">
+    <button class="modal-close" onclick="closeModal('calc')">✕</button>
+    <h2>🔢 Calculadora</h2>
+    <div class="calc-display">
+      <div class="calc-expr" id="calc-expr"></div>
+      <div class="calc-val" id="calc-val">0</div>
+    </div>
+    <div class="calc-buttons">
+      <button class="cb clr" onclick="calcClear()">C</button>
+      <button class="cb op"  onclick="calcInput('±')">±</button>
+      <button class="cb op"  onclick="calcInput('%')">%</button>
+      <button class="cb op"  onclick="calcInput('/')">÷</button>
+      <button class="cb"     onclick="calcInput('7')">7</button>
+      <button class="cb"     onclick="calcInput('8')">8</button>
+      <button class="cb"     onclick="calcInput('9')">9</button>
+      <button class="cb op"  onclick="calcInput('*')">×</button>
+      <button class="cb"     onclick="calcInput('4')">4</button>
+      <button class="cb"     onclick="calcInput('5')">5</button>
+      <button class="cb"     onclick="calcInput('6')">6</button>
+      <button class="cb op"  onclick="calcInput('-')">−</button>
+      <button class="cb"     onclick="calcInput('1')">1</button>
+      <button class="cb"     onclick="calcInput('2')">2</button>
+      <button class="cb"     onclick="calcInput('3')">3</button>
+      <button class="cb op"  onclick="calcInput('+')">+</button>
+      <button class="cb zero" onclick="calcInput('0')">0</button>
+      <button class="cb"     onclick="calcInput('.')">.</button>
+      <button class="cb eq"  onclick="calcEqual()">=</button>
+    </div>
+  </div>
+</div>
+
+<!-- VERIFICADOR CNJ -->
+<div class="modal-overlay" id="modal-processo">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('processo')">✕</button>
+    <h2>📄 Verificador de Nº de Processo</h2>
+    <input type="text" class="modal-input" id="proc-numero"
+      placeholder="Cole o número do processo (qualquer formato)..." oninput="verificarProcesso()" />
+    <div id="proc-badge" style="display:none" class="cnj-badge"></div>
+    <div class="modal-result" id="proc-result">Cole o número acima.</div>
+  </div>
+</div>
+
+<!-- QUALIFICACAO -->
+<div class="modal-overlay" id="modal-qualificacao">
+  <div class="modal" style="max-width:620px">
+    <button class="modal-close" onclick="closeModal('qualificacao')">✕</button>
+    <h2>👤 Gerador de Qualificação</h2>
+    <p style="font-size:11.5px;color:var(--text-dim);margin-bottom:14px">Cole texto <strong style="color:var(--cream)">ou</strong> imagem do print da procuração — a IA extrai e formata no padrão do escritório.</p>
+
+    <!-- TABS ENTRADA -->
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <button class="btn-primary" id="qtab-texto" onclick="switchQualTab('texto')" style="flex:1;text-align:center">Colar texto</button>
+      <button class="btn-sec"     id="qtab-imagem" onclick="switchQualTab('imagem')" style="flex:1;text-align:center">Colar / enviar imagem</button>
+    </div>
+
+    <!-- PAINEL TEXTO -->
+    <div id="qpane-texto">
+      <textarea id="qual-texto" class="modal-textarea" style="min-height:110px;margin-bottom:10px"
+        placeholder="Cole aqui o texto copiado da procuração...&#10;Ex: Nome: Thiago Soares Errador CPF: 42507712880..."></textarea>
+    </div>
+
+    <!-- PAINEL IMAGEM -->
+    <div id="qpane-imagem" style="display:none">
+      <label id="qual-drop" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;border:1.5px dashed rgba(201,168,76,0.25);border-radius:10px;cursor:pointer;transition:all 0.15s;margin-bottom:10px"
+        ondragover="event.preventDefault();this.style.borderColor='var(--gold)'"
+        ondragleave="this.style.borderColor='rgba(201,168,76,0.25)'"
+        ondrop="handleQualDrop(event)">
+        <span style="font-size:28px">🖼️</span>
+        <span style="font-size:12.5px;color:var(--text-dim)" id="qual-drop-label">Arraste, clique para selecionar ou Ctrl+V com imagem copiada</span>
+        <input type="file" accept="image/*" id="input-qual" style="display:none" onchange="loadQualImg(this.files[0])">
+      </label>
+      <img id="qual-preview" style="display:none;max-width:100%;max-height:180px;border-radius:6px;border:1px solid rgba(201,168,76,0.2);margin-bottom:10px">
+    </div>
+
+    <div class="btn-row" style="margin-bottom:12px">
+      <button class="btn-primary" id="qual-btn" onclick="gerarQualificacao()">Extrair e gerar</button>
+      <button class="btn-sec" onclick="resetQual()">Limpar</button>
+      <button class="btn-sec" onclick="copyEl('qual-result')">Copiar</button>
+    </div>
+
+    <div id="qual-result" style="padding:16px;background:rgba(8,16,30,0.7);border:1px solid rgba(201,168,76,0.1);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.8;color:var(--cream);min-height:60px;white-space:pre-wrap">O parágrafo de qualificação aparecerá aqui.</div>
+
+    <div id="qual-fields" style="display:none;margin-top:14px">
+      <div style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:10px">— Ajuste os campos se necessário</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="qual-fields-grid"></div>
+      <button class="btn-primary" style="margin-top:10px;width:100%" onclick="regerarQualificacao()">↻ Remontar parágrafo</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONVERSOR PDF -->
+<div class="modal-overlay" id="modal-conversor">
+  <div class="modal" style="max-width:580px">
+    <button class="modal-close" onclick="closeModal('conversor')">✕</button>
+    <h2>🔄 Conversor de Documentos</h2>
+
+    <!-- ABAS -->
+    <div style="display:flex;gap:8px;margin-bottom:18px">
+      <button class="btn-primary" id="tab-pdf2png" onclick="switchConvTab('pdf2png')" style="flex:1;text-align:center">PDF → PNG</button>
+      <button class="btn-sec"     id="tab-img2pdf" onclick="switchConvTab('img2pdf')" style="flex:1;text-align:center">PNG / JPG → PDF</button>
+    </div>
+
+    <!-- PDF → PNG -->
+    <div id="pane-pdf2png">
+      <p style="font-size:11.5px;color:var(--text-dim);margin-bottom:12px">Cada página do PDF será exportada como uma imagem PNG separada.</p>
+      <label style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;border:1.5px dashed rgba(201,168,76,0.25);border-radius:10px;cursor:pointer;transition:all 0.15s;margin-bottom:12px" id="drop-pdf"
+        ondragover="event.preventDefault();this.style.borderColor='var(--gold)'"
+        ondragleave="this.style.borderColor='rgba(201,168,76,0.25)'"
+        ondrop="handlePdfDrop(event)">
+        <span style="font-size:28px">📂</span>
+        <span style="font-size:12.5px;color:var(--text-dim)">Arraste o PDF aqui ou clique para selecionar</span>
+        <input type="file" accept=".pdf" id="input-pdf" style="display:none" onchange="loadPdf(this.files[0])">
+      </label>
+      <div id="pdf-info" style="display:none;margin-bottom:10px">
+        <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--cream);margin-bottom:8px" id="pdf-info-text"></div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <label style="font-size:11px;color:var(--gold-dim);font-family:'DM Mono',monospace">DPI:</label>
+          <select class="modal-select" id="pdf-dpi" style="margin:0;width:100px">
+            <option value="96">96 (padrão)</option>
+            <option value="150">150 (boa)</option>
+            <option value="200" selected>200 (alta)</option>
+            <option value="300">300 (máxima)</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="convertPdfToPng()">Converter e baixar</button>
+          <button class="btn-sec" onclick="resetPdf()">Limpar</button>
+        </div>
+      </div>
+      <div id="pdf-progress" style="display:none;font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);margin-top:8px"></div>
+      <div id="pdf-previews" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"></div>
+    </div>
+
+    <!-- PNG/JPG → PDF -->
+    <div id="pane-img2pdf" style="display:none">
+      <p style="font-size:11.5px;color:var(--text-dim);margin-bottom:12px">Selecione uma ou mais imagens. Serão unidas em um único PDF, uma por página.</p>
+      <label style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;border:1.5px dashed rgba(201,168,76,0.25);border-radius:10px;cursor:pointer;transition:all 0.15s;margin-bottom:12px" id="drop-img"
+        ondragover="event.preventDefault();this.style.borderColor='var(--gold)'"
+        ondragleave="this.style.borderColor='rgba(201,168,76,0.25)'"
+        ondrop="handleImgDrop(event)">
+        <span style="font-size:28px">🖼️</span>
+        <span style="font-size:12.5px;color:var(--text-dim)">Arraste imagens aqui ou clique para selecionar</span>
+        <input type="file" accept="image/png,image/jpeg,image/jpg,image/webp" id="input-imgs" multiple style="display:none" onchange="loadImgs(this.files)">
+      </label>
+      <div id="img-list" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px"></div>
+      <div id="img-actions" style="display:none">
+        <div class="btn-row">
+          <button class="btn-primary" onclick="convertImgToPdf()">Gerar PDF</button>
+          <button class="btn-sec" onclick="resetImgs()">Limpar</button>
+        </div>
+      </div>
+      <div id="img-progress" style="display:none;font-family:\'DM Mono\',monospace;font-size:12px;color:var(--gold);margin-top:8px"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script>
+// ── DADOS PADRÃO ─────────────────────────────────────
+const DEFAULT_SISTEMAS = [
+  {emoji:'🪪', label:'Digisac',       sub:'Comunicação',        url:'https://app.digisac.com.br'},
+  {emoji:'📋', label:'Astrea',        sub:'Gestão processual',  url:'https://app.astrea.com.br'},
+  {emoji:'⚖️', label:'SAJ Peticion.', sub:'Peticionamento',     url:'https://www.saj.com.br'},
+  {emoji:'🔍', label:'E-SAJ TJSP',    sub:'Consulta',           url:'https://esaj.tjsp.jus.br'},
+  {emoji:'☁️', label:'OneDrive',      sub:'Meus arquivos',      url:'https://onedrive.live.com'},
+  {emoji:'📅', label:'Outlook',       sub:'Email / Agenda',     url:'https://outlook.office.com'},
+  {emoji:'🤖', label:'ChatGPT',       sub:'OpenAI',             url:'https://chat.openai.com'},
+  {emoji:'🎙️', label:'NotebookLM',   sub:'Google',             url:'https://notebooklm.google.com'},
+  {emoji:'🏛️', label:'OAB',          sub:'Cadastro',           url:'https://www.oab.org.br'},
+  {emoji:'📚', label:'Jusbrasil',     sub:'Jurisprudência',     url:'https://www.jusbrasil.com.br/jurisprudencia'},
+  {emoji:'📄', label:'iLovePDF',      sub:'PDF tools',          url:'https://www.ilovepdf.com'},
+  {emoji:'▶️', label:'YouTube',       sub:'',                   url:'https://youtube.com'},
+];
+
+const DEFAULT_ACESSO = [
+  {emoji:'✉️', label:'Gmail',           sub:'',            url:'https://mail.google.com'},
+  {emoji:'📅', label:'Google Agenda',   sub:'',            url:'https://calendar.google.com'},
+  {emoji:'🌸', label:'Claude',          sub:'claude.ai',   url:'https://claude.ai'},
+  {emoji:'📜', label:'L13105',          sub:'CPC',         url:'https://www.planalto.gov.br/ccivil_03/leis/l13105.htm'},
+  {emoji:'📆', label:'Notion Calendar', sub:'',            url:'https://www.notion.so'},
+  {emoji:'📬', label:'Email OAB',       sub:'',            url:'https://webmail.oab.org.br'},
+  {emoji:'🗂️', label:'Notion',         sub:'Workspace',   url:'https://notion.so'},
+];
+
+const DEFAULT_TOOLS = [
+  {emoji:'🔎', label:'Farejador',      sub:'Análise com IA',   type:'modal', target:'farejador'},
+  {emoji:'✍️', label:'Gerador Peças',  sub:'Estrutura com IA', type:'modal', target:'gerador'},
+  {emoji:'🧮', label:'Calc. Prazos',   sub:'Dias úteis',       type:'modal', target:'calculadora'},
+  {emoji:'🔢', label:'Calculadora',    sub:'',                 type:'modal', target:'calc'},
+  {emoji:'📄', label:'Verif. CNJ',     sub:'Nº processo',      type:'modal', target:'processo'},
+  {emoji:'🔄', label:'Conversor',      sub:'PDF ↔ PNG',         type:'modal', target:'conversor'},
+  {emoji:'👤', label:'Qualificação',   sub:'Print → texto',     type:'modal', target:'qualificacao'},
+];
+
+// ── LOAD / SAVE ───────────────────────────────────────
+function loadData(key, def) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; }
+  catch { return def; }
+}
+function saveData(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+let sistemasData = loadData('pa_sistemas', DEFAULT_SISTEMAS);
+let acessoData   = loadData('pa_acesso',   DEFAULT_ACESSO);
+let toolsData    = loadData('pa_tools',    DEFAULT_TOOLS);
+
+// ── RENDER SISTEMAS ───────────────────────────────────
+function renderSistemas() {
+  const grid = document.getElementById('links-sistemas');
+  grid.innerHTML = '';
+  sistemasData.forEach((item, i) => {
+    const a = document.createElement('a');
+    a.className = 'quick-link';
+    a.href = item.url; a.target = '_blank';
+    a.innerHTML = `
+      <span class="link-emoji">${item.emoji}</span>
+      <span class="link-label">${item.label}</span>
+      ${item.sub ? `<span class="link-sub">${item.sub}</span>` : ''}
+      <div class="edit-overlay" onclick="event.preventDefault();event.stopPropagation()">
+        <input class="ei-emoji" value="${item.emoji}" id="se_${i}_emoji" placeholder="🔗" style="width:40px;text-align:center" />
+        <input value="${item.label}" id="se_${i}_label" placeholder="Nome" style="width:100%" />
+        <input value="${item.url}" id="se_${i}_url" placeholder="https://..." style="width:100%" />
+        <button class="edit-save-btn" onclick="saveSistema(${i})">✓ salvar</button>
+      </div>`;
+    grid.appendChild(a);
+  });
+}
+
+function saveSistema(i) {
+  sistemasData[i].emoji = document.getElementById(`se_${i}_emoji`).value.trim() || sistemasData[i].emoji;
+  sistemasData[i].label = document.getElementById(`se_${i}_label`).value.trim() || sistemasData[i].label;
+  sistemasData[i].url   = document.getElementById(`se_${i}_url`).value.trim()   || sistemasData[i].url;
+  saveData('pa_sistemas', sistemasData);
+  renderSistemas();
+}
+
+// ── RENDER ACESSO ──────────────────────────────────────
+function renderAcesso() {
+  const cont = document.getElementById('links-acesso');
+  cont.innerHTML = '';
+  acessoData.forEach((item, i) => {
+    const a = document.createElement('a');
+    a.className = 'side-link';
+    a.href = item.url; a.target = '_blank';
+    a.innerHTML = `
+      <span class="side-link-icon">${item.emoji}</span>
+      <span style="flex:1">
+        <span style="display:block;font-size:13px">${item.label}</span>
+        ${item.sub ? `<span class="side-link-sub">${item.sub}</span>` : ''}
+      </span>
+      <div class="side-edit-overlay" onclick="event.preventDefault();event.stopPropagation()">
+        <input class="ei-emoji" value="${item.emoji}" id="ae_${i}_emoji" style="width:36px;text-align:center" />
+        <input class="ei-label" value="${item.label}" id="ae_${i}_label" placeholder="Nome" />
+        <input class="ei-url"   value="${item.url}"   id="ae_${i}_url"   placeholder="https://..." />
+        <button class="edit-save-btn" onclick="saveAcesso(${i})">✓</button>
+      </div>`;
+    cont.appendChild(a);
+  });
+}
+
+function saveAcesso(i) {
+  acessoData[i].emoji = document.getElementById(`ae_${i}_emoji`).value.trim() || acessoData[i].emoji;
+  acessoData[i].label = document.getElementById(`ae_${i}_label`).value.trim() || acessoData[i].label;
+  acessoData[i].url   = document.getElementById(`ae_${i}_url`).value.trim()   || acessoData[i].url;
+  saveData('pa_acesso', acessoData);
+  renderAcesso();
+}
+
+// ── RENDER FERRAMENTAS ────────────────────────────────
+function renderTools() {
+  const grid = document.getElementById('tools-grid');
+  grid.innerHTML = '';
+  toolsData.forEach(item => {
+    const el = document.createElement(item.type === 'link' ? 'a' : 'button');
+    el.className = 'tool-btn';
+    if(item.type === 'link') { el.href = item.target; el.target = '_blank'; }
+    else el.onclick = () => openModal(item.target);
+    el.innerHTML = `
+      <span class="tool-emoji">${item.emoji}</span>
+      <span>${item.label}</span>
+      ${item.sub ? `<span class="tool-sub">${item.sub}</span>` : ''}`;
+    grid.appendChild(el);
+  });
+}
+
+// ── EDIT MODE ─────────────────────────────────────────
+let editMode = false;
+function toggleEdit() {
+  editMode = !editMode;
+  document.body.classList.toggle('editing', editMode);
+  document.getElementById('btn-edit').classList.toggle('active', editMode);
+  document.getElementById('edit-label').textContent = editMode ? 'Concluir' : 'Editar links';
+}
+
+// ── TO-DO ─────────────────────────────────────────────
+let todos = loadData('pa_todos', []);
+
+function renderTodos() {
+  const list = document.getElementById('todo-list');
+  if(todos.length === 0) {
+    list.innerHTML = '<div class="todo-empty">Nenhuma tarefa.</div>'; return;
+  }
+  list.innerHTML = '';
+  todos.forEach((t, i) => {
+    const el = document.createElement('div');
+    el.className = 'todo-item' + (t.done ? ' done' : '');
+    el.innerHTML = `
+      <div class="todo-check" onclick="toggleTodo(${i})">${t.done ? '✓' : ''}</div>
+      <span class="todo-text" onclick="toggleTodo(${i})">${t.text}</span>
+      <button class="todo-del" onclick="deleteTodo(${i})">×</button>`;
+    list.appendChild(el);
+  });
+}
+
+function addTodo() {
+  const inp = document.getElementById('todo-input');
+  const text = inp.value.trim();
+  if(!text) return;
+  todos.unshift({text, done:false});
+  saveData('pa_todos', todos);
+  renderTodos();
+  inp.value = '';
+}
+
+function toggleTodo(i) {
+  todos[i].done = !todos[i].done;
+  saveData('pa_todos', todos);
+  renderTodos();
+}
+
+function deleteTodo(i) {
+  todos.splice(i, 1);
+  saveData('pa_todos', todos);
+  renderTodos();
+}
+
+// ── CALENDÁRIO ────────────────────────────────────────
+const CAL_MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+                    'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+let calYear, calMonth;
+
+function initCal() {
+  const now = new Date();
+  calYear = now.getFullYear(); calMonth = now.getMonth();
+  renderCal();
+}
+
+function changeMonth(d) { calMonth += d; if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;} renderCal(); }
+
+function renderCal() {
+  document.getElementById('cal-month').textContent = `${CAL_MONTHS[calMonth]} ${calYear}`;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'cal-dow'; el.textContent = d;
+    grid.appendChild(el);
+  });
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const daysInPrev  = new Date(calYear, calMonth, 0).getDate();
+  const today = new Date();
+
+  for(let i = 0; i < firstDay; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day';
+    el.textContent = daysInPrev - firstDay + 1 + i;
+    grid.appendChild(el);
+  }
+  for(let d = 1; d <= daysInMonth; d++) {
+    const el = document.createElement('div');
+    const dow = (firstDay + d - 1) % 7;
+    let cls = 'cal-day cur-month';
+    if(dow===0||dow===6) cls += ' weekend';
+    if(d===today.getDate() && calMonth===today.getMonth() && calYear===today.getFullYear()) cls += ' today';
+    el.className = cls; el.textContent = d;
+    grid.appendChild(el);
+  }
+  const total = firstDay + daysInMonth;
+  const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+  for(let d = 1; d <= remaining; d++) {
+    const el = document.createElement('div'); el.className='cal-day'; el.textContent=d;
+    grid.appendChild(el);
+  }
+}
+
+// ── NOTAS ─────────────────────────────────────────────
+let currentTab = 0, saveTimer = null;
+
+function switchTab(t) {
+  const area = document.getElementById('notepad-area');
+  localStorage.setItem(`pa_note_${currentTab}`, area.value);
+  currentTab = t;
+  area.value = localStorage.getItem(`pa_note_${t}`) || '';
+  document.querySelectorAll('.note-tab').forEach((el,i) => el.classList.toggle('active', i===t));
+  area.focus();
+}
+
+function initNotes() {
+  const area = document.getElementById('notepad-area');
+  area.value = localStorage.getItem('pa_note_0') || '';
+  area.addEventListener('input', () => {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      localStorage.setItem(`pa_note_${currentTab}`, area.value);
+      const el = document.getElementById('note-saved');
+      el.textContent='salvo ✓'; el.classList.add('flash');
+      setTimeout(()=>{ el.textContent='auto-salvo'; el.classList.remove('flash'); }, 1500);
+    }, 600);
+  });
+}
+
+function clearNote() {
+  if(!confirm('Limpar esta aba?')) return;
+  document.getElementById('notepad-area').value = '';
+  localStorage.removeItem(`pa_note_${currentTab}`);
+}
+
+// ── MODAIS ────────────────────────────────────────────
+function openModal(id) { document.getElementById('modal-'+id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id) { document.getElementById('modal-'+id).classList.remove('open'); document.body.style.overflow=''; }
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', e => { if(e.target===el) el.classList.remove('open'); document.body.style.overflow=''; });
+});
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape') { document.querySelectorAll('.modal-overlay.open').forEach(el=>el.classList.remove('open')); document.body.style.overflow=''; }
+});
+
+function copyEl(id) { navigator.clipboard.writeText(document.getElementById(id).textContent); }
+
+// ── CALCULADORA COMUM ─────────────────────────────────
+let calcExpr = '', calcNew = true;
+
+function calcInput(v) {
+  const ops = ['+','-','*','/','%'];
+  const isOp = ops.includes(v);
+  if(v === '±') {
+    const cur = document.getElementById('calc-val').textContent;
+    const n = parseFloat(cur);
+    if(!isNaN(n)) { document.getElementById('calc-val').textContent = String(n * -1); }
+    return;
+  }
+  if(calcNew && !isOp) { calcExpr = ''; calcNew = false; document.getElementById('calc-val').textContent='0'; }
+  const cur = document.getElementById('calc-val').textContent;
+  if(isOp) {
+    calcExpr = cur + ' ' + v + ' ';
+    document.getElementById('calc-expr').textContent = calcExpr;
+    calcNew = true;
+    return;
+  }
+  if(v === '.' && cur.includes('.')) return;
+  const next = (cur === '0' && v !== '.') ? v : cur + v;
+  document.getElementById('calc-val').textContent = next;
+}
+
+function calcEqual() {
+  if(!calcExpr) return;
+  try {
+    const expr = calcExpr + document.getElementById('calc-val').textContent;
+    const result = Function('"use strict"; return (' + expr + ')')();
+    const rounded = Math.round(result * 1e10) / 1e10;
+    document.getElementById('calc-expr').textContent = expr + ' =';
+    document.getElementById('calc-val').textContent = String(rounded);
+    calcExpr = ''; calcNew = true;
+  } catch { document.getElementById('calc-val').textContent = 'Erro'; calcNew = true; }
+}
+
+function calcClear() {
+  calcExpr = ''; calcNew = true;
+  document.getElementById('calc-val').textContent = '0';
+  document.getElementById('calc-expr').textContent = '';
+}
+
+// Teclado na calculadora
+document.addEventListener('keydown', e => {
+  const modal = document.getElementById('modal-calc');
+  if(!modal.classList.contains('open')) return;
+  if('0123456789'.includes(e.key)) calcInput(e.key);
+  else if(['+','-','*','/','%'].includes(e.key)) calcInput(e.key);
+  else if(e.key === '.') calcInput('.');
+  else if(e.key === 'Enter' || e.key === '=') calcEqual();
+  else if(e.key === 'Escape') closeModal('calc');
+  else if(e.key === 'Backspace') {
+    const cur = document.getElementById('calc-val').textContent;
+    document.getElementById('calc-val').textContent = cur.length > 1 ? cur.slice(0,-1) : '0';
+  }
+});
+
+// ── CALC PRAZOS ───────────────────────────────────────
+function toggleCalcCustom() {
+  const v = document.getElementById('calc-tipo').value;
+  document.getElementById('custom-dias-field').style.display = v==='custom'?'':'none';
+  document.getElementById('custom-tipo-field').style.display = v==='custom'?'':'none';
+}
+
+function feriados(ano) {
+  return new Set([`${ano}-01-01`,`${ano}-04-21`,`${ano}-05-01`,`${ano}-09-07`,
+    `${ano}-10-12`,`${ano}-11-02`,`${ano}-11-15`,`${ano}-12-25`]);
+}
+
+function addDiasUteis(dt, n) {
+  let d = new Date(dt); d.setHours(12,0,0,0);
+  const fer = new Set([...feriados(d.getFullYear()), ...feriados(d.getFullYear()+1)]);
+  let c = 0;
+  while(c < n) { d.setDate(d.getDate()+1); const s=d.toISOString().split('T')[0]; if(d.getDay()!==0&&d.getDay()!==6&&!fer.has(s)) c++; }
+  return d;
+}
+
+function fmtDate(d) { return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`; }
+
+function calcularPrazo() {
+  const ini = document.getElementById('calc-inicio').value;
+  if(!ini) { document.getElementById('calc-result').textContent='Selecione a data de início.'; return; }
+  const tipo = document.getElementById('calc-tipo').value;
+  let dias, uteis;
+  if(tipo==='custom') { dias=parseInt(document.getElementById('calc-custom-dias').value)||15; uteis=document.getElementById('calc-custom-tipo').value==='uteis'; }
+  else { uteis=tipo.endsWith('u'); dias=parseInt(tipo); }
+  const dtIni = new Date(ini+'T12:00:00');
+  let dtFim = uteis ? addDiasUteis(dtIni,dias) : new Date(dtIni.setDate(dtIni.getDate()+dias));
+  let aviso='';
+  while(dtFim.getDay()===0||dtFim.getDay()===6){ dtFim.setDate(dtFim.getDate()+1); aviso='\n⚠ Prorrogado (fim de semana).'; }
+  const hoje=new Date(); hoje.setHours(0,0,0,0);
+  const diff=Math.ceil((dtFim-hoje)/86400000);
+  document.getElementById('calc-result').textContent =
+    `Início:     ${fmtDate(new Date(ini+'T12:00:00'))}\n`+
+    `Tipo:       ${dias}d ${uteis?'úteis':'corridos'}\n`+
+    `────────────────────────\n`+
+    `Vencimento: ${fmtDate(dtFim)}\n`+
+    `Resta(m):   ${diff>0?diff+'d':'VENCIDO'}${aviso}`;
+}
+
+// ── VERIFICADOR CNJ ───────────────────────────────────
+function verificarProcesso() {
+  const raw = document.getElementById('proc-numero').value.replace(/\D/g,'');
+  const res = document.getElementById('proc-result');
+  const badge = document.getElementById('proc-badge');
+  if(!raw){ res.textContent='Cole o número acima.'; badge.style.display='none'; return; }
+  if(raw.length!==20){ res.textContent=`Dígitos: ${raw.length}/20 — ${raw.length<20?'incompleto':'excesso'}.`; badge.style.display='none'; return; }
+  const n=raw.slice(0,7),dd=raw.slice(7,9),ano=raw.slice(9,13),j=raw.slice(13,14),tt=raw.slice(14,16),oooo=raw.slice(16,20);
+  const fmt=`${n}-${dd}.${ano}.${j}.${tt}.${oooo}`;
+  badge.textContent=fmt; badge.style.display='inline-flex';
+  const ramos={'1':'STF','2':'CNJ','3':'STJ','4':'Justiça Federal','5':'Trab.','6':'El.','7':'Mil.Fed.','8':'Est./DF','9':'Mil.Est.'};
+  const tjs={'26':'TJSP','19':'TJRJ','13':'TJMG','04':'TJRS'};
+  let trib=''; if(j==='8') trib=tjs[tt]?`Tribunal:    ${tjs[tt]}`:`Tribunal:    código ${tt}`;
+  res.textContent=`Nº processo: ${n}\nDíg. verif.: ${dd}\nAno:         ${ano}\nRamo:        ${ramos[j]||'código '+j}\n${trib?trib+'\n':''}Origem:      ${oooo}`;
+}
+
+// ── IA: FAREJADOR ─────────────────────────────────────
+async function runFarejador() {
+  const tema=document.getElementById('farej-tema').value;
+  const custom=document.getElementById('farej-custom').value.trim();
+  const query=custom||tema;
+  if(!query){ alert('Selecione um tema ou descreva a questão.'); return; }
+  const el=document.getElementById('farej-result');
+  el.innerHTML='<span class="loading">Analisando...</span>';
+  const prompt=`Você é assistente jurídico especializado em litígios de servidores públicos estaduais de SP (JESP/TJSP). Teses do escritório: abono de permanência (STJ Tema 1.233), desvio de função, GEAH/décimos incorporados, precatório/RPV, IRDR 47, quinquênio, sexta-parte, licença-prêmio.\n\nAnalise: "${query}"\n\nEstruture em 4 blocos:\n1. ESTADO DA JURISPRUDÊNCIA\n2. TENDÊNCIAS\n3. RISCOS\n4. RECOMENDAÇÃO\n\nDireto, técnico, máx 400 palavras.`;
+  try {
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const d=await r.json();
+    el.textContent=d.content?.map(b=>b.text||'').join('')||'Sem resposta.';
+  } catch(e){ el.textContent=`Erro: ${e.message}`; }
+}
+
+// ── IA: GERADOR ───────────────────────────────────────
+async function runGerador() {
+  const tipo=document.getElementById('gen-tipo').value;
+  const fatos=document.getElementById('gen-fatos').value.trim();
+  if(!tipo){ alert('Selecione o tipo de peça.'); return; }
+  if(!fatos){ alert('Descreva os fatos essenciais.'); return; }
+  const el=document.getElementById('gen-output');
+  el.innerHTML='<span class="loading">Gerando estrutura...</span>';
+  const prompt=`Advogado especializado em servidores públicos estaduais SP (JESP/TJSP). Gere estrutura argumentativa para: ${tipo}.\n\nFatos: ${fatos}\n\nFormato:\n- Tópicos numerados com título\n- Por tópico: argumento central (2-3 frases) + fundamento legal\n- Ao final: documentos necessários\n\nNão escreva a peça completa. Fazenda Pública do Estado de SP como requerida.`;
+  try {
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const d=await r.json();
+    el.textContent=d.content?.map(b=>b.text||'').join('')||'Sem resposta.';
+  } catch(e){ el.textContent=`Erro: ${e.message}`; }
+}
+
+// ── QUALIFICAÇÃO ──────────────────────────────────────
+let qualImgData = null, qualImgType = null, qualDados = {}, qualTabAtual = 'texto';
+
+function switchQualTab(tab) {
+  qualTabAtual = tab;
+  document.getElementById('qpane-texto').style.display  = tab==='texto'  ? '' : 'none';
+  document.getElementById('qpane-imagem').style.display = tab==='imagem' ? '' : 'none';
+  document.getElementById('qtab-texto').className  = tab==='texto'  ? 'btn-primary' : 'btn-sec';
+  document.getElementById('qtab-imagem').className = tab==='imagem' ? 'btn-primary' : 'btn-sec';
+}
+
+// Clique no label abre input de arquivo
+document.getElementById('qual-drop').addEventListener('click', function(e) {
+  if(e.target === this || e.target.tagName === 'SPAN') {
+    document.getElementById('input-qual').click();
+  }
+});
+
+// Ctrl+V — só intercepta quando o modal está aberto e a aba é imagem
+document.addEventListener('paste', function(e) {
+  const modal = document.getElementById('modal-qualificacao');
+  if(!modal.classList.contains('open')) return;
+  if(qualTabAtual !== 'imagem') return;
+  const items = e.clipboardData && e.clipboardData.items;
+  if(!items) return;
+  for(let i = 0; i < items.length; i++) {
+    if(items[i].type.startsWith('image/')) {
+      e.preventDefault();
+      loadQualImg(items[i].getAsFile());
+      break;
+    }
+  }
+});
+
+function handleQualDrop(e) {
+  e.preventDefault();
+  document.getElementById('qual-drop').style.borderColor = 'rgba(201,168,76,0.25)';
+  const f = e.dataTransfer.files[0];
+  if(f && f.type.startsWith('image/')) loadQualImg(f);
+}
+
+function loadQualImg(file) {
+  if(!file) return;
+  qualImgType = file.type;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    qualImgData = ev.target.result.split(',')[1];
+    const preview = document.getElementById('qual-preview');
+    preview.src = ev.target.result;
+    preview.style.display = 'block';
+    document.getElementById('qual-drop-label').textContent = '✓ ' + file.name;
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetQual() {
+  qualImgData = null; qualImgType = null; qualDados = {};
+  document.getElementById('qual-preview').style.display = 'none';
+  document.getElementById('qual-drop-label').textContent = 'Arraste, clique para selecionar ou Ctrl+V com imagem copiada';
+  document.getElementById('qual-result').textContent = 'O parágrafo de qualificação aparecerá aqui.';
+  document.getElementById('qual-fields').style.display = 'none';
+  document.getElementById('qual-fields-grid').innerHTML = '';
+  document.getElementById('input-qual').value = '';
+  document.getElementById('qual-texto').value = '';
+}
+
+async function gerarQualificacao() {
+  const el = document.getElementById('qual-result');
+  el.textContent = 'Processando...';
+  document.getElementById('qual-fields').style.display = 'none';
+
+  const prompt = `Você é um assistente jurídico brasileiro. Analise o conteúdo abaixo e extraia os dados pessoais do outorgante da procuração.
+
+Retorne SOMENTE um JSON válido com estas chaves (omita a chave se o valor não estiver presente):
+{
+  "nome": "NOME COMPLETO EM MAIÚSCULAS",
+  "nacionalidade": "brasileiro/brasileira",
+  "estado_civil": "casado/solteiro/divorciado/viúvo/etc",
+  "profissao": "profissão",
+  "rg": "número com pontuação original",
+  "cpf": "número formatado com pontos e traço",
+  "endereco": "logradouro, número e complemento",
+  "bairro": "bairro",
+  "cidade": "cidade",
+  "estado": "UF (2 letras)",
+  "cep": "CEP formatado com traço"
+}
+
+Formate CPF como XXX.XXX.XXX-XX e CEP como XXXXX-XXX se não estiverem formatados.
+Retorne apenas o JSON, sem explicações ou markdown.`;
+
+  try {
+    let messages;
+
+    if(qualTabAtual === 'imagem') {
+      if(!qualImgData) { el.textContent = 'Nenhuma imagem carregada.'; return; }
+      messages = [{
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: qualImgType, data: qualImgData } },
+          { type: 'text', text: prompt }
+        ]
+      }];
+    } else {
+      const texto = document.getElementById('qual-texto').value.trim();
+      if(!texto) { el.textContent = 'Cole o texto da procuração antes de gerar.'; return; }
+      messages = [{
+        role: 'user',
+        content: prompt + '\n\nDados da procuração:\n' + texto
+      }];
+    }
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 500,
+        messages: messages
+      })
+    });
+
+    const data = await resp.json();
+    const raw = data.content?.map(b => b.text || '').join('').trim();
+    const json = raw.replace(/```json|```/g, '').trim();
+    qualDados = JSON.parse(json);
+    montarQualificacao();
+    renderQualFields();
+
+  } catch(e) {
+    el.textContent = 'Erro ao processar: ' + e.message;
+  }
+}
+
+function montarQualificacao() {
+  const d = qualDados;
+  const partes = [];
+  if(d.nome)           partes.push(d.nome);
+  if(d.nacionalidade)  partes.push(d.nacionalidade);
+  if(d.estado_civil)   partes.push(d.estado_civil);
+  if(d.profissao)      partes.push(d.profissao);
+  if(d.rg)             partes.push('portador do RG nº ' + d.rg);
+  if(d.cpf)            partes.push('do CPF nº ' + d.cpf);
+  if(d.endereco) {
+    let end = 'residente à ' + d.endereco;
+    if(d.bairro)  end += ', ' + d.bairro;
+    if(d.cidade && d.estado) end += ', ' + d.cidade + '/' + d.estado;
+    else if(d.cidade) end += ', ' + d.cidade;
+    if(d.cep)     end += ', CEP nº ' + d.cep;
+    partes.push(end);
+  }
+  document.getElementById('qual-result').textContent = partes.join(', ');
+}
+
+function renderQualFields() {
+  const grid = document.getElementById('qual-fields-grid');
+  grid.innerHTML = '';
+  const labels = {
+    nome:'Nome', nacionalidade:'Nacionalidade', estado_civil:'Estado Civil',
+    profissao:'Profissão', rg:'RG', cpf:'CPF',
+    endereco:'Endereço', bairro:'Bairro', cidade:'Cidade', estado:'UF', cep:'CEP'
+  };
+  Object.entries(labels).forEach(([key, label]) => {
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <label style="display:block;font-size:9.5px;color:var(--gold-dim);font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px">${label}</label>
+      <input type="text" value="${qualDados[key]||''}" id="qf_${key}"
+        style="width:100%;padding:7px 10px;background:rgba(8,16,30,0.9);border:1px solid rgba(201,168,76,0.15);border-radius:6px;color:var(--cream);font-size:12px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.12s"
+        onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(201,168,76,0.15)'" />`;
+    grid.appendChild(wrap);
+  });
+  document.getElementById('qual-fields').style.display = '';
+}
+
+function regerarQualificacao() {
+  const labels = ['nome','nacionalidade','estado_civil','profissao','rg','cpf','endereco','bairro','cidade','estado','cep'];
+  labels.forEach(k => {
+    const el = document.getElementById('qf_' + k);
+    if(el && el.value.trim()) qualDados[k] = el.value.trim();
+    else delete qualDados[k];
+  });
+  montarQualificacao();
+}
+
+// ── CONVERSOR ─────────────────────────────────────────
+
+// ── CONVERSOR ─────────────────────────────────────────
+let pdfDoc = null, imgFiles = [];
+
+function switchConvTab(tab) {
+  document.getElementById('pane-pdf2png').style.display = tab==='pdf2png' ? '' : 'none';
+  document.getElementById('pane-img2pdf').style.display = tab==='img2pdf' ? '' : 'none';
+  document.getElementById('tab-pdf2png').className = tab==='pdf2png' ? 'btn-primary' : 'btn-sec';
+  document.getElementById('tab-img2pdf').className = tab==='img2pdf' ? 'btn-primary' : 'btn-sec';
+}
+
+// Clique no label abre o input
+document.getElementById('drop-pdf').addEventListener('click', () => document.getElementById('input-pdf').click());
+document.getElementById('drop-img').addEventListener('click', () => document.getElementById('input-imgs').click());
+
+function handlePdfDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-pdf').style.borderColor='rgba(201,168,76,0.25)';
+  const f = e.dataTransfer.files[0];
+  if(f && f.type==='application/pdf') loadPdf(f);
+}
+
+function handleImgDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-img').style.borderColor='rgba(201,168,76,0.25)';
+  loadImgs(e.dataTransfer.files);
+}
+
+async function loadPdfJs() {
+  if(window.pdfjsLib) return;
+  await new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload = res; s.onerror = rej;
+    document.head.appendChild(s);
+  });
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
+
+async function loadPdf(file) {
+  if(!file) return;
+  try {
+    await loadPdfJs();
+    const buf = await file.arrayBuffer();
+    pdfDoc = await window.pdfjsLib.getDocument({data: buf}).promise;
+    document.getElementById('pdf-info-text').textContent =
+      `📄 ${file.name}  ·  ${pdfDoc.numPages} página(s)  ·  ${(file.size/1024).toFixed(0)} KB`;
+    document.getElementById('pdf-info').style.display = '';
+    document.getElementById('pdf-previews').innerHTML = '';
+    document.getElementById('pdf-progress').style.display = 'none';
+  } catch(e) { alert('Erro ao carregar PDF: ' + e.message); }
+}
+
+async function convertPdfToPng() {
+  if(!pdfDoc) return;
+  const dpi = parseInt(document.getElementById('pdf-dpi').value);
+  const scale = dpi / 96;
+  const prog = document.getElementById('pdf-progress');
+  const prev = document.getElementById('pdf-previews');
+  prev.innerHTML = ''; prog.style.display = '';
+
+  for(let i = 1; i <= pdfDoc.numPages; i++) {
+    prog.textContent = `Convertendo página ${i} de ${pdfDoc.numPages}...`;
+    const page = await pdfDoc.getPage(i);
+    const vp = page.getViewport({scale});
+    const canvas = document.createElement('canvas');
+    canvas.width = vp.width; canvas.height = vp.height;
+    await page.render({canvasContext: canvas.getContext('2d'), viewport: vp}).promise;
+
+    // Preview thumbnail
+    const thumb = document.createElement('div');
+    thumb.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:4px';
+    const img = document.createElement('img');
+    img.src = canvas.toDataURL('image/png');
+    img.style.cssText = 'width:80px;border-radius:4px;border:1px solid rgba(201,168,76,0.2)';
+    const lbl = document.createElement('span');
+    lbl.style.cssText = 'font-family:\'DM Mono\',monospace;font-size:9px;color:var(--text-dim)';
+    lbl.textContent = `Pág. ${i}`;
+    thumb.appendChild(img); thumb.appendChild(lbl);
+    prev.appendChild(thumb);
+
+    // Download
+    const a = document.createElement('a');
+    a.download = `pagina_${String(i).padStart(2,'0')}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    await new Promise(r => setTimeout(r, 300));
+  }
+  prog.textContent = `✓ ${pdfDoc.numPages} imagem(ns) exportada(s).`;
+}
+
+function resetPdf() {
+  pdfDoc = null;
+  document.getElementById('pdf-info').style.display = 'none';
+  document.getElementById('pdf-previews').innerHTML = '';
+  document.getElementById('pdf-progress').style.display = 'none';
+  document.getElementById('input-pdf').value = '';
+}
+
+function loadImgs(files) {
+  imgFiles = [...imgFiles, ...Array.from(files).filter(f => f.type.startsWith('image/'))];
+  renderImgList();
+}
+
+function renderImgList() {
+  const list = document.getElementById('img-list');
+  const actions = document.getElementById('img-actions');
+  list.innerHTML = '';
+  if(imgFiles.length === 0) { actions.style.display='none'; return; }
+  actions.style.display = '';
+  imgFiles.forEach((f, i) => {
+    const url = URL.createObjectURL(f);
+    const el = document.createElement('div');
+    el.style.cssText = 'position:relative;display:inline-flex;flex-direction:column;align-items:center;gap:3px';
+    el.innerHTML = `
+      <img src="${url}" style="width:60px;height:60px;object-fit:cover;border-radius:5px;border:1px solid rgba(201,168,76,0.2)">
+      <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-dim);max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${f.name}</span>
+      <button onclick="removeImg(${i})" style="position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:#c0392b;border:none;color:#fff;font-size:10px;cursor:pointer;line-height:1">×</button>`;
+    list.appendChild(el);
+  });
+}
+
+function removeImg(i) { imgFiles.splice(i,1); renderImgList(); }
+function resetImgs() { imgFiles=[]; renderImgList(); document.getElementById('input-imgs').value=''; document.getElementById('img-progress').style.display='none'; }
+
+async function convertImgToPdf() {
+  if(imgFiles.length===0) return;
+  const prog = document.getElementById('img-progress');
+  prog.style.display=''; prog.textContent='Gerando PDF...';
+
+  // Usa jsPDF via CDN
+  if(!window.jspdf) {
+    await new Promise((res,rej)=>{ const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s); });
+  }
+
+  const {jsPDF} = window.jspdf;
+  let pdf = null;
+
+  for(let i=0; i<imgFiles.length; i++) {
+    prog.textContent=`Adicionando imagem ${i+1} de ${imgFiles.length}...`;
+    const dataUrl = await new Promise(res => { const r=new FileReader(); r.onload=e=>res(e.target.result); r.readAsDataURL(imgFiles[i]); });
+    const img = await new Promise(res => { const im=new Image(); im.onload=()=>res(im); im.src=dataUrl; });
+    const iw=img.naturalWidth, ih=img.naturalHeight;
+    const orient = iw>ih ? 'l' : 'p';
+    const fmt = [iw*0.264583, ih*0.264583]; // px → mm (96dpi)
+    if(!pdf) { pdf = new jsPDF({orientation:orient, unit:'mm', format:fmt}); }
+    else { pdf.addPage(fmt, orient); }
+    pdf.addImage(dataUrl, 'PNG', 0, 0, fmt[0], fmt[1]);
+  }
+
+  pdf.save('imagens_convertidas.pdf');
+  prog.textContent=`✓ PDF gerado com ${imgFiles.length} página(s).`;
+}
+
+// ── INIT ─────────────────────────────────────────────
+renderSistemas();
+renderAcesso();
+renderTools();
+renderTodos();
+initNotes();
+initCal();
+document.getElementById('calc-inicio').valueAsDate = new Date();
+</script>
+</body>
+</html>
